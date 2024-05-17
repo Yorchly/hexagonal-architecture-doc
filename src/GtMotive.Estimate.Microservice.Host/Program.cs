@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using Azure.Extensions.AspNetCore.Configuration.Secrets;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using GtMotive.Estimate.Microservice.Api;
+using GtMotive.Estimate.Microservice.Api.DependencyInjection;
 using GtMotive.Estimate.Microservice.Host.Configuration;
 using GtMotive.Estimate.Microservice.Host.DependencyInjection;
 using GtMotive.Estimate.Microservice.Infrastructure;
+using GtMotive.Estimate.Microservice.Infrastructure.DependencyInjection;
 using GtMotive.Estimate.Microservice.Infrastructure.MongoDb.Settings;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.ApplicationInsights.Extensibility;
@@ -38,7 +41,10 @@ if (!builder.Environment.IsDevelopment())
 builder.Logging.ClearProviders();
 
 Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console(outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}")
+    .WriteTo
+    .Console(
+        outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}",
+        formatProvider: CultureInfo.CurrentCulture)
     .CreateBootstrapLogger();
 
 builder.Host.UseSerilog();
@@ -90,6 +96,9 @@ builder.Services.AddAuthentication(options =>
     });
 
 builder.Services.AddSwagger(appSettings, builder.Configuration);
+builder.Services.AddRepositories();
+builder.Services.AddMongoService();
+builder.Services.AddMappers();
 
 var app = builder.Build();
 
@@ -103,12 +112,15 @@ Log.Logger = builder.Environment.IsDevelopment() ?
         .WriteTo.Console(
             outputTemplate:
             "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}",
+            formatProvider: CultureInfo.CurrentCulture,
             theme: AnsiConsoleTheme.Literate)
         .CreateLogger() :
     new LoggerConfiguration()
         .Enrich.FromLogContext()
         .Enrich.WithProperty("Application", "addoperation")
-        .WriteTo.Console(outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}")
+        .WriteTo.Console(
+            outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}",
+            formatProvider: CultureInfo.CurrentCulture)
         .WriteTo.ApplicationInsights(
             app.Services.GetRequiredService<TelemetryConfiguration>(), TelemetryConverter.Traces)
         .ReadFrom.Configuration(builder.Configuration)

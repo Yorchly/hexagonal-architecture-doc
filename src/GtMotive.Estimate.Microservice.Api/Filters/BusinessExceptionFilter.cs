@@ -39,7 +39,7 @@ namespace GtMotive.Estimate.Microservice.Api.Filters
                 _appLogger.LogWarning("Domain Exception: {status} - {detail}", problemDetails.Status, problemDetails.Detail);
 
                 context.Result = new BadRequestObjectResult(problemDetails);
-                context.Exception = null;
+                context.Exception = null!;
             }
             else
             {
@@ -55,7 +55,7 @@ namespace GtMotive.Estimate.Microservice.Api.Filters
                 _appLogger.LogError(context.Exception, "Unhandled Exception");
 
                 context.Result = new InternalServerErrorObjectResult(problemDetails);
-                context.Exception = null;
+                context.Exception = null!;
             }
         }
     }
