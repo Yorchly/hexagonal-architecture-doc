@@ -11,6 +11,7 @@ namespace GtMotive.Estimate.Microservice.Api.DependencyInjection
         {
             services.AddScoped<IGetAllVehiclesUseCase, GetAllVehiclesUseCase>();
             services.AddScoped<ICreateVehicleUseCase<VehicleInput>, CreateVehicleUseCase>();
+            services.AddScoped<IRentVehicleUseCase<RentVehicleInput>, RentVehicleUseCase>();
         }
     }
 }

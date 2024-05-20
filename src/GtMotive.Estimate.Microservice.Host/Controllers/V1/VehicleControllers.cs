@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GtMotive.Estimate.Microservice.Host.Controllers.V1
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("vehicle")]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public class VehicleControllers : ControllerBase
     {
@@ -29,6 +29,16 @@ namespace GtMotive.Estimate.Microservice.Host.Controllers.V1
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateVehicleRequest request)
+        {
+            var presenter =
+                await _mediator.Send(request);
+
+            return presenter.ActionResult;
+        }
+
+        // TO-DO This should be a patch and use JsonPatch
+        [HttpPut("{id}/rent")]
+        public async Task<IActionResult> RentAVehicle([FromBody] RentVehicleRequest request)
         {
             var presenter =
                 await _mediator.Send(request);

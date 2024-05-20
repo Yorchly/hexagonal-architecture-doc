@@ -38,6 +38,8 @@ namespace GtMotive.Estimate.Microservice.Api.Mappers
                     vehicle => vehicle.CreatedAt,
                     config => config.MapFrom(
                         vehicleInput => vehicleInput.CreatedAt.ToDateTime()));
+            CreateMap<RentVehicleRequest, RentVehicleInput>()
+                .ReverseMap();
         }
     }
 }

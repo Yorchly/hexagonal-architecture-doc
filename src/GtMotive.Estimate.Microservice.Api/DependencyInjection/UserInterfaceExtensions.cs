@@ -10,6 +10,7 @@ namespace GtMotive.Estimate.Microservice.Api.DependencyInjection
         {
             services.AddScoped<IGetAllVehiclePresenter, GetAllVehiclesPresenter>();
             services.AddScoped<ICreateVehiclePresenter, CreateVehiclePresenter>();
+            services.AddScoped<IRentVehiclePresenter, RentVehiclePresenter>();
 
             return services;
         }

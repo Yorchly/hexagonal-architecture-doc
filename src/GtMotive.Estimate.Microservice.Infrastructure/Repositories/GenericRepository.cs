@@ -28,11 +28,12 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Repositories
             _collection = mongoDatabase.GetCollection<T>(collectionName);
         }
 
+        public IMongoCollection<T> GetCollection() => _collection;
+
         public virtual async Task CreateAsync(T entity) =>
             await _collection.InsertOneAsync(entity);
 
-        // Not pagination was added to the list result
-        // because was not asked in document.
+        // TO-DO This should be use pagination.
         public virtual async Task<List<T>> GetAsync() =>
             await _collection.Find(_ => true).ToListAsync();
 
