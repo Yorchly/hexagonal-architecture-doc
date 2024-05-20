@@ -31,6 +31,8 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Repositories
         public virtual async Task CreateAsync(T entity) =>
             await _collection.InsertOneAsync(entity);
 
+        // Not pagination was added to the list result
+        // because was not asked in document.
         public virtual async Task<List<T>> GetAsync() =>
             await _collection.Find(_ => true).ToListAsync();
 

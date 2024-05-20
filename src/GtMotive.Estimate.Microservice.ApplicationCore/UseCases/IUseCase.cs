@@ -16,4 +16,17 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases
         /// <returns>Task.</returns>
         Task Execute(TUseCaseInput input);
     }
+
+    /// <summary>
+    /// Interface for the handler of an use case.
+    /// </summary>
+    public interface IUseCase : IUseCaseInput
+    {
+        /// <summary>
+        /// Executes the Use Case.
+        /// </summary>
+        /// <param name="input">Input Message.</param>
+        /// <returns>Task.</returns>
+        Task Execute();
+    }
 }

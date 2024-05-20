@@ -1,18 +1,30 @@
-﻿using GtMotive.Estimate.Microservice.Api.UseCases;
+﻿using System.Collections.Generic;
+using AutoMapper;
+using GtMotive.Estimate.Microservice.Api.Presenters.Interfaces;
+using GtMotive.Estimate.Microservice.Api.ViewModels;
 using GtMotive.Estimate.Microservice.ApplicationCore.Outputs;
-using GtMotive.Estimate.Microservice.ApplicationCore.UseCases;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GtMotive.Estimate.Microservice.Api.Presenters
 {
-    internal class GetAllVehiclesPresenter :
-        IWebApiPresenter, IGetAllVehicleOutputPort<VehicleOutput>
+    internal class GetAllVehiclesPresenter : IGetAllVehiclePresenter
     {
-        public IActionResult ActionResult => throw new System.NotImplementedException();
+        private readonly IMapper _mapper;
 
-        public void StandardHandle(VehicleOutput response)
+        public GetAllVehiclesPresenter(IMapper mapper)
         {
-            throw new System.NotImplementedException();
+            _mapper = mapper;
+        }
+
+        public IActionResult ActionResult { get; private set; } = null!;
+
+        public void StandardHandle(VehicleCollectionOutput response)
+        {
+            var mappedResponse =
+                _mapper.Map<List<VehicleResponse>>(response.ToList());
+
+            ActionResult =
+                new OkObjectResult(mappedResponse);
         }
     }
 }
