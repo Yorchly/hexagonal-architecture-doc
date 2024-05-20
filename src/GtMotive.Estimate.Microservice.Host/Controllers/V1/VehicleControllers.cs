@@ -1,9 +1,5 @@
 ﻿using System.Threading.Tasks;
-using AutoMapper;
 using GtMotive.Estimate.Microservice.Api.Requests;
-using GtMotive.Estimate.Microservice.Api.ViewModels;
-using GtMotive.Estimate.Microservice.Domain.Entities;
-using GtMotive.Estimate.Microservice.Infrastructure.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,15 +12,10 @@ namespace GtMotive.Estimate.Microservice.Host.Controllers.V1
     public class VehicleControllers : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IVehicleRepository _vehicleRepository;
-        private readonly IMapper _mapper;
 
-        public VehicleControllers(
-            IMediator mediator, IVehicleRepository vehicleRepository, IMapper mapper)
+        public VehicleControllers(IMediator mediator)
         {
             _mediator = mediator;
-            _vehicleRepository = vehicleRepository;
-            _mapper = mapper;
         }
 
         [HttpGet]
@@ -37,13 +28,12 @@ namespace GtMotive.Estimate.Microservice.Host.Controllers.V1
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(VehicleResponse vehicleResponse)
+        public async Task<IActionResult> Post([FromBody] CreateVehicleRequest request)
         {
-            var vehicle = _mapper.Map<Vehicle>(vehicleResponse);
+            var presenter =
+                await _mediator.Send(request);
 
-            await _vehicleRepository.CreateAsync(vehicle);
-
-            return Ok();
+            return presenter.ActionResult;
         }
     }
 }

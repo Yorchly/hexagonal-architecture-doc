@@ -8,7 +8,7 @@ using MediatR;
 
 namespace GtMotive.Estimate.Microservice.Api.Command
 {
-    internal class GetAllVehiclesRequestHandler
+    public class GetAllVehiclesRequestHandler
         : IRequestHandler<GetAllVehiclesRequest, IWebApiPresenter>
     {
         private readonly IGetAllVehiclesUseCase _useCase;

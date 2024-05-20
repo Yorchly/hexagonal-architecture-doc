@@ -17,12 +17,12 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.Inputs.ValueObjects.Veh
         /// <exception cref="CoreException">Could throw a CoreException.</exception>
         public CreatedAt(DateTime createdAt)
         {
-            var maxYear = DateTime.Now.Year + 5;
+            var minYear = DateTime.Now.Year - 5;
 
-            if (createdAt.Year > maxYear)
+            if (createdAt.Year <= minYear)
             {
                 throw new CoreException($"The vehicle year of " +
-                    $"creation cannot be greater than {maxYear}");
+                    $"creation cannot be lesser than {minYear}");
             }
 
             _createdAt = createdAt;
