@@ -39,7 +39,8 @@ namespace GtMotive.Estimate.Microservice.Host.Controllers.V1
 
         // TO-DO This should be a patch and use JsonPatch
         [HttpPut("{id}/rent")]
-        public async Task<IActionResult> RentAVehicle([FromBody] RentVehicleRequest request)
+        public async Task<IActionResult> RentAVehicle(
+            [FromBody] RentVehicleRequest request)
         {
             var presenter =
                 await _mediator.Send(request);
