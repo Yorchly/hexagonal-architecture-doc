@@ -1,24 +1,20 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using GtMotive.Estimate.Microservice.Api.UseCases;
-using GtMotive.Estimate.Microservice.Domain.Enums;
+using MediatR;
 
 namespace GtMotive.Estimate.Microservice.Api.Requests
 {
-    public class CreateVehicleRequest : BaseRequest<IWebApiPresenter>
+    public class CreateVehicleRequest : IRequest<IWebApiPresenter>
     {
         public CreateVehicleRequest(
             string brand,
             string model,
-            DateTime createdAt,
-            string rentedBy,
-            VehicleStatusType status)
+            DateTime createdAt)
         {
             Brand = brand;
             Model = model;
             CreatedAt = createdAt;
-            RentedBy = rentedBy;
-            Status = status;
         }
 
         /// <summary>
@@ -38,16 +34,5 @@ namespace GtMotive.Estimate.Microservice.Api.Requests
         /// </summary>
         [Required]
         public DateTime CreatedAt { get; set; }
-
-        /// <summary>
-        /// Gets or sets the RentedBy.
-        /// </summary>
-        public string? RentedBy { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Status.
-        /// </summary>
-        [Required]
-        public VehicleStatusType Status { get; set; }
     }
 }

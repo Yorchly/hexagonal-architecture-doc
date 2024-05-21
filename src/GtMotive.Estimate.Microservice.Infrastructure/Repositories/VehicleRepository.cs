@@ -13,9 +13,9 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Repositories
         {
         }
 
-        public async Task<Vehicle?> GetVehicleByRented(string rented) =>
+        public async Task<Vehicle?> GetVehicleByRented(string rentedBy) =>
             await GetCollection()
-                .Find(vehicle => vehicle.RentedBy == rented)
+                .Find(vehicle => vehicle.RentedBy == rentedBy)
                 .FirstOrDefaultAsync();
     }
 }

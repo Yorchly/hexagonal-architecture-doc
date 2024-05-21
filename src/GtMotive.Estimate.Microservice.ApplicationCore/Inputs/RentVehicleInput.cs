@@ -10,6 +10,13 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.Inputs
         /// <summary>
         /// Initializes a new instance of the <see cref="RentVehicleInput"/> class.
         /// </summary>
+        public RentVehicleInput()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RentVehicleInput"/> class.
+        /// </summary>
         /// <param name="id">id input.</param>
         /// <param name="rentedBy">rentedBy input.</param>
         public RentVehicleInput(
@@ -23,6 +30,6 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.Inputs
         /// <summary>
         /// Gets or sets the RentedBy.
         /// </summary>
-        public string RentedBy { get; set; }
+        public string RentedBy { get; set; } = string.Empty;
     }
 }

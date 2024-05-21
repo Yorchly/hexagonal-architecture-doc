@@ -5,6 +5,6 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Interfaces
 {
     public interface IVehicleRepository : IGenericRepository<Vehicle>
     {
-        public Task<Vehicle?> GetVehicleByRented(string rented);
+        public Task<Vehicle?> GetVehicleByRented(string rentedBy);
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using GtMotive.Estimate.Microservice.ApplicationCore.Inputs.ValueObjects.Vehicle;
 using GtMotive.Estimate.Microservice.Domain.Enums;
 
@@ -11,36 +10,14 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.Inputs
     public class VehicleInput : BaseInput
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="VehicleInput"/> class.
-        /// </summary>
-        /// <param name="brand">brand input.</param>
-        /// <param name="model">model input.</param>
-        /// <param name="createdAt">createdAt input.</param>
-        /// <param name="rentedBy">rentedBy input.</param>
-        /// <param name="status">status input.</param>
-        public VehicleInput(
-            string brand,
-            string model,
-            DateTime createdAt,
-            string rentedBy,
-            VehicleStatusType status)
-        {
-            Brand = brand;
-            Model = model;
-            CreatedAt = new CreatedAt(createdAt);
-            RentedBy = rentedBy;
-            Status = status;
-        }
-
-        /// <summary>
         /// Gets or sets the brand.
         /// </summary>
-        public string Brand { get; set; }
+        public string Brand { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the Model.
         /// </summary>
-        public string Model { get; set; }
+        public string Model { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the CreatedAt.

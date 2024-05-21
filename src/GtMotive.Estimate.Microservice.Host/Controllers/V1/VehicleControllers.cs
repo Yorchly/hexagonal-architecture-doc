@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using GtMotive.Estimate.Microservice.Api.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -42,6 +43,16 @@ namespace GtMotive.Estimate.Microservice.Host.Controllers.V1
         {
             var presenter =
                 await _mediator.Send(request);
+
+            return presenter.ActionResult;
+        }
+
+        // TO-DO This should be a patch and use JsonPatch
+        [HttpPut("{id}/return")]
+        public async Task<IActionResult> ReturnVehicle(Guid id)
+        {
+            var presenter =
+                await _mediator.Send(new ReturnVehicleRequest { Id = id });
 
             return presenter.ActionResult;
         }

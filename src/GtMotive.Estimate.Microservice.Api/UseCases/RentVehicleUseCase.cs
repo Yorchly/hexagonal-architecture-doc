@@ -52,8 +52,7 @@ namespace GtMotive.Estimate.Microservice.Api.UseCases
 
                 return;
             }
-
-            if (vehicle.Status != VehicleStatusType.Available)
+            else if (vehicle.Status != VehicleStatusType.Available)
             {
                 BuildBadRequestOutput(vehicle.Id);
 
@@ -61,6 +60,7 @@ namespace GtMotive.Estimate.Microservice.Api.UseCases
             }
 
             vehicle.RentedBy = input.RentedBy;
+            vehicle.Status = VehicleStatusType.Rented;
 
             await _vehicleRepository.UpdateAsync(vehicle.Id, vehicle);
 

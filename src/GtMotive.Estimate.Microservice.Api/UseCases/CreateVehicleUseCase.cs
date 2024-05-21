@@ -6,6 +6,7 @@ using GtMotive.Estimate.Microservice.ApplicationCore.Inputs;
 using GtMotive.Estimate.Microservice.ApplicationCore.Outputs;
 using GtMotive.Estimate.Microservice.ApplicationCore.UseCases;
 using GtMotive.Estimate.Microservice.Domain.Entities;
+using GtMotive.Estimate.Microservice.Domain.Enums;
 using GtMotive.Estimate.Microservice.Infrastructure.Interfaces;
 
 namespace GtMotive.Estimate.Microservice.Api.UseCases
@@ -46,6 +47,7 @@ namespace GtMotive.Estimate.Microservice.Api.UseCases
             }
 
             var vehicle = _mapper.Map<Vehicle>(input);
+            vehicle.Status = VehicleStatusType.Available;
 
             await _vehicleRepository.CreateAsync(vehicle);
 
