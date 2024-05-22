@@ -23,7 +23,7 @@ using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
 
-var builder = WebApplication.CreateBuilder();
+var builder = WebApplication.CreateBuilder(args);
 
 // Configuration.
 if (!builder.Environment.IsDevelopment())

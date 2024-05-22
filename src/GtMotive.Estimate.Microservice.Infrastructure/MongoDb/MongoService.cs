@@ -1,4 +1,5 @@
-﻿using GtMotive.Estimate.Microservice.Domain.Entities;
+﻿using System;
+using GtMotive.Estimate.Microservice.Domain.Entities;
 using GtMotive.Estimate.Microservice.Infrastructure.MongoDb.Settings;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson.Serialization;
@@ -19,8 +20,13 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.MongoDb
                     .SetIdGenerator(CombGuidGenerator.Instance);
             });
 
-            var mongoClient = new MongoClient(options.Value.ConnectionString);
-            MongoDatabase = mongoClient.GetDatabase(options.Value.MongoDbDatabaseName);
+            var connectionString =
+                Environment.GetEnvironmentVariable(options.Value.ConnectionString);
+            var mongoClient = new MongoClient(connectionString);
+
+            var databaseName =
+                Environment.GetEnvironmentVariable(options.Value.MongoDbDatabaseName);
+            MongoDatabase = mongoClient.GetDatabase(databaseName);
         }
 
         public IMongoDatabase MongoDatabase { get; }

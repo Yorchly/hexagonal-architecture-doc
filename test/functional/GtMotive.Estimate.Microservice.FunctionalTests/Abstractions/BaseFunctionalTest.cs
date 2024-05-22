@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 
 namespace GtMotive.Estimate.Microservice.FunctionalTests.Abstractions
@@ -13,7 +14,11 @@ namespace GtMotive.Estimate.Microservice.FunctionalTests.Abstractions
                 throw new ArgumentNullException(nameof(factory));
             }
 
-            HttpClient = factory.CreateClient();
+            HttpClient = factory.CreateClient(new WebApplicationFactoryClientOptions
+            {
+                BaseAddress = new Uri("http://localhost:44367"),
+                AllowAutoRedirect = false
+            });
         }
 
         public HttpClient HttpClient { get; init; }

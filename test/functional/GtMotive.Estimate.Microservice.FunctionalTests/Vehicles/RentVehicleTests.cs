@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -37,7 +38,7 @@ namespace GtMotive.Estimate.Microservice.FunctionalTests.Vehicles
                 await HttpClient.PutAsJsonAsync($"vehicle/{vehicle.Id}/rent", rentRequest);
 
             // Assert
-            rentResponse.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
+            rentResponse.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
     }
 }

@@ -11,22 +11,21 @@ namespace GtMotive.Estimate.Microservice.FunctionalTests.Abstractions
 {
     public class FunctionalTestWebAppFactory : WebApplicationFactory<Program>, IAsyncLifetime
     {
+#pragma warning disable CA2213 // Disposable fields should be disposed
         private readonly MongoDbContainer _mongoDbContainer = new MongoDbBuilder()
+#pragma warning restore CA2213 // Disposable fields should be disposed
             .WithImage("mongodb/mongodb-community-server:6.0-ubi8")
-            .WithUsername("user")
-            .WithPassword("secret")
-            .WithExposedPort(27017)
-            .WithEnvironment("MONGO_INITDB_DATABASE", "VehicleStoreTest")
+            .WithPortBinding(27017)
             .Build();
 
-        public Task InitializeAsync()
+        public async Task InitializeAsync()
         {
-            return _mongoDbContainer.StartAsync();
+            await _mongoDbContainer.StartAsync();
+            Console.WriteLine(_mongoDbContainer.GetConnectionString());
         }
 
         public new async Task DisposeAsync()
         {
-            await _mongoDbContainer.DisposeAsync();
             await _mongoDbContainer.StopAsync();
         }
 
@@ -34,11 +33,18 @@ namespace GtMotive.Estimate.Microservice.FunctionalTests.Abstractions
         {
             Environment.SetEnvironmentVariable(
                 "ASPNETCORE_ENVIRONMENT", "Development");
+            Environment.SetEnvironmentVariable(
+                "MONGODB_CONNECTION_STRING", "mongodb://mongo:mongo@127.0.0.1:27017/");
+            Environment.SetEnvironmentVariable(
+                "MONGODB_DATABASE_NAME", "VehicleStoreTest");
+
             var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettings.Testing.json", optional: false, reloadOnChange: true)
                 .AddEnvironmentVariables()
                 .Build();
             builder.UseConfiguration(configuration);
+
+            builder.UseUrls("http://localhost:44367");
         }
     }
 }
