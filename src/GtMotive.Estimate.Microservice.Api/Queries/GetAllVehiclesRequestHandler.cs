@@ -6,7 +6,7 @@ using GtMotive.Estimate.Microservice.Api.UseCases;
 using GtMotive.Estimate.Microservice.ApplicationCore.UseCases;
 using MediatR;
 
-namespace GtMotive.Estimate.Microservice.Api.Command
+namespace GtMotive.Estimate.Microservice.Api.Queries
 {
     public class GetAllVehiclesRequestHandler
         : IRequestHandler<GetAllVehiclesRequest, IWebApiPresenter>

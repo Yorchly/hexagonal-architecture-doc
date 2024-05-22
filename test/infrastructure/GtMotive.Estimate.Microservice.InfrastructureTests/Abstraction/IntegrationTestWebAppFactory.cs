@@ -7,9 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Testcontainers.MongoDb;
 using Xunit;
 
-namespace GtMotive.Estimate.Microservice.FunctionalTests.Abstractions
+namespace GtMotive.Estimate.Microservice.InfrastructureTests.Abstraction
 {
-    public class FunctionalTestWebAppFactory : WebApplicationFactory<Program>, IAsyncLifetime
+    public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsyncLifetime
     {
         // Test will thrown an exception if I dispose mongoDbContainer.
 #pragma warning disable CA2213 // Disposable fields should be disposed

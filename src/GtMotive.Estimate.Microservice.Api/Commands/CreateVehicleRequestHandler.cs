@@ -8,18 +8,18 @@ using GtMotive.Estimate.Microservice.ApplicationCore.Inputs;
 using GtMotive.Estimate.Microservice.ApplicationCore.UseCases;
 using MediatR;
 
-namespace GtMotive.Estimate.Microservice.Api.Queries
+namespace GtMotive.Estimate.Microservice.Api.Commands
 {
-    public class ReturnVehicleRequestHandler
-        : IRequestHandler<ReturnVehicleRequest, IWebApiPresenter>
+    public class CreateVehicleRequestHandler
+        : IRequestHandler<CreateVehicleRequest, IWebApiPresenter>
     {
-        private readonly IReturnVehicleUseCase<ReturnVehicleInput> _useCase;
-        private readonly IReturnVehiclePresenter _presenter;
+        private readonly ICreateVehicleUseCase<VehicleInput> _useCase;
+        private readonly ICreateVehiclePresenter _presenter;
         private readonly IMapper _mapper;
 
-        public ReturnVehicleRequestHandler(
-            IReturnVehicleUseCase<ReturnVehicleInput> useCase,
-            IReturnVehiclePresenter presenter,
+        public CreateVehicleRequestHandler(
+            ICreateVehicleUseCase<VehicleInput> useCase,
+            ICreateVehiclePresenter presenter,
             IMapper mapper)
         {
             _useCase = useCase;
@@ -28,9 +28,9 @@ namespace GtMotive.Estimate.Microservice.Api.Queries
         }
 
         public async Task<IWebApiPresenter> Handle(
-            ReturnVehicleRequest request, CancellationToken cancellationToken)
+            CreateVehicleRequest request, CancellationToken cancellationToken)
         {
-            var vehicleInput = _mapper.Map<ReturnVehicleInput>(request);
+            var vehicleInput = _mapper.Map<VehicleInput>(request);
 
             await _useCase.Execute(vehicleInput);
 

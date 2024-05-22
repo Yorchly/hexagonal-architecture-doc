@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using GtMotive.Estimate.Microservice.Api.Command;
 using GtMotive.Estimate.Microservice.Api.Presenters.Interfaces;
+using GtMotive.Estimate.Microservice.Api.Queries;
 using GtMotive.Estimate.Microservice.Api.Requests;
 using GtMotive.Estimate.Microservice.ApplicationCore.UseCases;
 using Moq;
