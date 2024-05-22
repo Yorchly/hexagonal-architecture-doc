@@ -33,4 +33,6 @@ RUN dotnet publish "GtMotive.Estimate.Microservice.Host.csproj" -c Release -o /a
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "GtMotive.Estimate.Microservice.Host.dll"]
+ENV ASPNETCORE_URLS=http://+:52539
+EXPOSE 52539
+ENTRYPOINT ["dotnet", "GtMotive.Estimate.Microservice.Host.dll", "--environment=Development"]

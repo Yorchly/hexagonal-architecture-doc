@@ -19,7 +19,7 @@ namespace GtMotive.Estimate.Microservice.FunctionalTests.Infrastructure
         public CompositionRootTestFixture()
         {
             var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettings.Testing.json", optional: false, reloadOnChange: true)
                 .AddEnvironmentVariables()
                 .Build();
 
