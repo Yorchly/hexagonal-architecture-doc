@@ -34,7 +34,7 @@ namespace GtMotive.Estimate.Microservice.FunctionalTests.Abstractions
             Environment.SetEnvironmentVariable(
                 "ASPNETCORE_ENVIRONMENT", "Development");
             Environment.SetEnvironmentVariable(
-                "MONGODB_CONNECTION_STRING", "mongodb://mongo:mongo@127.0.0.1:27017/");
+                "MONGODB_CONNECTION_STRING", _mongoDbContainer.GetConnectionString());
             Environment.SetEnvironmentVariable(
                 "MONGODB_DATABASE_NAME", "VehicleStoreTest");
 
